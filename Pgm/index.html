@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>スロット</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <style>
+    #slots {
+      display: flex;
+    }
+    .slot {
+			border: 1px solid #000000;
+      width: 25%;
+    }
+  </style>
+</head>
+<body>
+	<div id="slots">
+		<div class="slot">
+      <p>キャラ1人目</p>
+			<img class="symbol" src="./image/character/37.png">
+			<button class="stop">ストップ</button>
+		</div>
+		<div class="slot">
+      <p>キャラ2人目</p>
+			<img class="symbol" src="./image/character/37.png">
+			<button class="stop">ストップ</button>
+		</div>
+		<div class="slot">
+      <p>キャラ3人目</p>
+			<img class="symbol" src="./image/character/37.png">
+			<button class="stop">ストップ</button>
+		</div>
+		<div class="slot">
+      <p>キャラ4人目</p>
+			<img class="symbol" src="./image/character/37.png">
+			<button class="stop">ストップ</button>
+		</div>
+	</div>
+	<button id="start">スタート</button>
+	<script>
+		$(document).ready(function(){
+			// スロットの回転速度
+			var speed = 100;
+			// スロットのタイマー
+			var timers = [null, null, null, null];
+
+			// スロットの画像リスト
+			// キャラクター
+			var characterlist = [
+				"./image/character/6.png",
+				"./image/character/37.png",
+				"./image/character/An-an_Lee.png",
+				"./image/character/APPLe.png",
+				"./image/character/Baby_Blue.png",
+				"./image/character/Balloon.png",
+				"./image/character/Bette.png",
+				"./image/character/Bkornblume.png",
+				"./image/character/Black_Dwarf.png",
+				"./image/character/Blonney.png",
+				"./image/character/Bunny_Bunny.png",
+				"./image/character/Centurion.png",
+				"./image/character/Changeling.png",
+				"./image/character/Charlie.png",
+				"./image/character/Click.png",
+				"./image/character/Cristallo.png",
+				"./image/character/Darley.png",
+				"./image/character/Diggers.png",
+				"./image/character/Dikke.png",
+				"./image/character/Door.png",
+				"./image/character/Druvis.png",
+				"./image/character/Eagle.png",
+				"./image/character/Erick.png",
+				"./image/character/Eternity.png",
+				"./image/character/Ezra.png",
+				"./image/character/Flannel.png",
+				"./image/character/Fool.png",
+				"./image/character/Getian.png",
+				"./image/character/Horropedia.png",
+				"./image/character/Isolde.png",
+				"./image/character/Jiu_Niangzi.png",
+				"./image/character/John_Titor.png",
+				"./image/character/Kanjira.png",
+				"./image/character/Knight.png",
+				"./image/character/Leilani.png",
+				"./image/character/Lilya.png",
+				"./image/character/Matilda.png",
+				"./image/character/Medicine.png",
+				"./image/character/Melania.png",
+				"./image/character/Mesmer.png",
+				"./image/character/Moissan.png",
+				"./image/character/Mondlicht.png",
+				"./image/character/Necrologist.png",
+				"./image/character/NewBabel.png",
+				"./image/character/Nick.png",
+				"./image/character/Oliver_Fog.png",
+				"./image/character/ONiON.png",
+				"./image/character/Pavia.png",
+				"./image/character/Pickles.png",
+				"./image/character/Poltergeist.png",
+				"./image/character/Rabies.png",
+				"./image/character/Radio.png",
+				"./image/character/Regulus.png",
+				"./image/character/Satsuki.png",
+				"./image/character/Shamane.png",
+				"./image/character/Sonetto.png",
+				"./image/character/Sotheby.png",
+				"./image/character/Source.png",
+				"./image/character/Spathodea.png",
+				"./image/character/Sputnik.png",
+				"./image/character/Sweetheart.png",
+				"./image/character/T.png",
+				"./image/character/Tennant.png",
+				"./image/character/Tooth_Fairy.png",
+				"./image/character/TTT.png",
+				"./image/character/Twins_Sleep.png",
+				"./image/character/Ulu.png",
+				"./image/character/Voyager.png",
+				"./image/character/X.png",
+				"./image/character/yenisey.png",
+				"./image/character/Zima.png"
+			];
+
+			// スロットを回す関数
+			function spincharacter(slot_index) {
+				var $slot = $(".slot").eq(slot_index);
+				var $symbol = $slot.children(".symbol");
+				var current_index = characterlist.indexOf($symbol.attr("src"));
+				var next_index = (current_index + 1) % characterlist.length;
+				$symbol.attr("src", characterlist[next_index]);
+				// タイマーをセット
+				timers[slot_index] = setTimeout(function() {
+					spincharacter(slot_index);
+				}, speed);
+			}
+
+			// スタートボタンを押した時の処理
+			$("#start").click(function() {
+				for (var i = 0; i < timers.length; i++) {
+					spincharacter(i);
+				}
+			});
+
+			// ストップボタンを押した時の処理
+			$(".stop").click(function() {
+				// クリックされたストップボタンのスロットを止める
+				var slot_index = $(".stop").index(this);
+				clearTimeout(timers[slot_index]);
+			});
+		});
+	</script>
+</body>
+</html>
