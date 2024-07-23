@@ -1,9 +1,0 @@
-name: 機能追加・改善
-description: 機能追加・改善はこちら
-title: "[Enhancement]: "
-labels: ["enhancement"]
-body:
-  - type: textarea
-    id: supplement
-    attributes:
-      label: 参考サイト
